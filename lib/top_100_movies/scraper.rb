@@ -23,10 +23,13 @@ class Top100Movies::Scraper
     # </td><td class="right hidden-xs">43</td>
 
     cells.each do |cell|
+      puts "#{cell.search(".bold").text.strip}"
       puts "#{cell.search(".tMeterScore").text.strip}" # Extracts RT scores
       puts "#{cell.search(".unstyled").text.strip}" # Extracts Movie Name
       cell.search("a").each {|link| puts "#{link['href']}"} # Extracts URL
     end
+
+
   end
 
 end
