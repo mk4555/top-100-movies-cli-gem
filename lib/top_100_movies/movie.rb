@@ -10,6 +10,5 @@ class Top100Movies::Movie
     @@all << self
   end
 
-  
 
 end
