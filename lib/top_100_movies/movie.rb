@@ -9,6 +9,7 @@ class Top100Movies::Movie
     @name = name
     @score = score
     @url = url
+    @box_office = "N/A"
     @@all << self
   end
 
@@ -53,9 +54,10 @@ class Top100Movies::Movie
     puts "Genre: \t\t#{movie.genres.join(", ")}"
     puts "Directors:\t#{movie.directors}"
     puts "Writers:\t#{movie.writers}"
-    puts "Release Date:\t#{movie.release_date[0..10]}"
+    puts "In Theaters:\t#{movie.release_date[0..11]}"
     puts "Box Office:\t#{movie.box_office}"
-    puts ""
+    puts "Runtime: \t#{movie.runtime}"
+    puts "Studio: \t#{movie.studio}"
   end
 
   def self.scrape_details(movie)
@@ -63,20 +65,32 @@ class Top100Movies::Movie
 # binding.pry
     movie.synopsis = doc.search("div#movieSynopsis").first.text.strip
     details = doc.search(".meta-value").map{|i| i.text.strip}
+    if details.size == 8
+      genres = details[1].split(", \n")
+      genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
+      movie.genres = genres
+      details.delete(details[1])
 
-    genres = details[1].split(", \n")
-    genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
-    movie.genres = genres
-    # binding.pry
-    details.delete(details[1]) # delete genres
-# binding.pry
-    movie.rating = details[0]
-    movie.directors = details[1]
-    movie.writers = details[2]
-    movie.release_date = details[3]
-    movie.box_office = details[5]
-    movie.runtime = details[6]
+      movie.rating = details[0]
+      movie.directors = details[1]
+      movie.writers = details[2]
+      movie.release_date = details[3]
+      movie.runtime = details[5]
+      movie.studio = details[6]
+    else
+      genres = details[1].split(", \n")
+      genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
+      movie.genres = genres
+      details.delete(details[1]) # delete genres
 
+      movie.rating = details[0]
+      movie.directors = details[1]
+      movie.writers = details[2]
+      movie.release_date = details[3]
+      movie.box_office = details[5]
+      movie.runtime = details[6]
+      movie.studio = details[7]
+    end
   end
 
 end
