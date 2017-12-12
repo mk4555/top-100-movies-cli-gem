@@ -15,10 +15,16 @@ class Top100Movies::Movie
     self.new(
       index.search(".bold").text.strip,
       index.search(".unstyled").text.strip,
-      index.search("a").each{|link| link['href']}
+      self.scrape_url(index)
     )
-    puts "#{index.search(".bold").text.strip}"
-    puts "#{index.search(".unstyled").text.strip}"
+  end
+
+  def self.scrape_url(index)
+    url = "https://www.rottentomatoes.com"
+    index.search("a").each do |link|
+      url += link['href']
+    end
+    url
   end
 
   def initialize(rank=nil, name=nil, url=nil)
@@ -28,6 +34,9 @@ class Top100Movies::Movie
     @@all << self
   end
 
+  def self.all
+    @@all
+  end
 
 
 
