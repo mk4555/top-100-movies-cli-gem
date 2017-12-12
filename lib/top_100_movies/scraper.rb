@@ -9,7 +9,6 @@ class Top100Movies::Scraper
     cells = []
     table.search('tr').each do |tr|
       cells << tr.search('th, td')
-      # puts "#{tr.search('th, td')}"
     end
     cells
   end

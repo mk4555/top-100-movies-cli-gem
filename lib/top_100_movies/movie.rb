@@ -62,9 +62,10 @@ class Top100Movies::Movie
 
   def self.scrape_details(movie)
     doc = Nokogiri::HTML(open("#{movie.url}"))
-# binding.pry
+    
     movie.synopsis = doc.search("div#movieSynopsis").first.text.strip
     details = doc.search(".meta-value").map{|i| i.text.strip}
+
     if details.size == 8
       genres = details[1].split(", \n")
       genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
