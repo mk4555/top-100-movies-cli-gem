@@ -13,10 +13,9 @@ class Top100Movies::CLI
   end
 
   def list_movies
+    puts "| Rank |      Name      | Rating |"
     Top100Movies::Movie.all.each do |movie|
-      puts "#{movie.rank}"
-      puts "#{movie.name}"
-      puts "#{movie.url}"
+      puts " #{movie.rank}. #{movie.name}  #{movie.rating}"
     end
   end
 end

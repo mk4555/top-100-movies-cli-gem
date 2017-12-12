@@ -4,17 +4,19 @@ class Top100Movies::Movie
 
   @@all = []
 
+  def initialize(rank=nil, name=nil, rating=nil, url=nil)
+    @rank = rank
+    @name = name
+    @rating = rating
+    @url = url
+    @@all << self
+  end
 
-  # cells.each do |cell|
-  #   puts "#{cell.search(".bold").text.strip}"
-  #   puts "#{cell.search(".tMeterScore").text.strip}" # Extracts RT scores
-  #   puts "#{cell.search(".unstyled").text.strip}" # Extracts Movie Name
-  #   cell.search("a").each {|link| puts "#{link['href']}"} # Extracts URL
-  # end
   def self.new_from_index(index)
     self.new(
-      index.search(".bold").text.strip,
+      index.search(".bold").text.tr('\.',''),
       index.search(".unstyled").text.strip,
+      index.search(".tMeterScore").text.strip,
       self.scrape_url(index)
     )
   end
@@ -27,15 +29,10 @@ class Top100Movies::Movie
     url
   end
 
-  def initialize(rank=nil, name=nil, url=nil)
-    @rank = rank
-    @name = name
-    @url = url
-    @@all << self
-  end
+
 
   def self.all
-    @@all
+    @@all.reject! { |c| c.name.empty? }
   end
 
 
