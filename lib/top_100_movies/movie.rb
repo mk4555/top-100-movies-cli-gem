@@ -1,5 +1,5 @@
 class Top100Movies::Movie
-  attr_accessor :rank, :name, :score, :url, :synopsis, :rating, :genre, :directors,
+  attr_accessor :rank, :name, :score, :url, :synopsis, :rating, :genres, :directors,
   :writers, :release_date, :box_office, :runtime, :studio
 
   @@all = []
@@ -34,8 +34,12 @@ class Top100Movies::Movie
   end
 
   def self.find(rank)
-    self.scrape_details(@@all[rank-1])
-    @@all[rank-1]
+    if @@all[rank-1].synopsis == nil
+      self.scrape_details(@@all[rank-1])
+      @@all[rank-1]
+    else
+      @@all[rank-1]
+    end
   end
 
   def self.print_movie(movie)
@@ -45,25 +49,34 @@ class Top100Movies::Movie
     puts "SYNOPSIS"
     puts "#{movie.synopsis}"
     puts ""
+    puts "Rating: \t#{movie.rating}"
+    puts "Genre: \t\t#{movie.genres.join(", ")}"
     puts "Directors:\t#{movie.directors}"
     puts "Writers:\t#{movie.writers}"
-    puts "Release Date:\t#{movie.release_date}"
+    puts "Release Date:\t#{movie.release_date[0..10]}"
     puts "Box Office:\t#{movie.box_office}"
     puts ""
   end
 
   def self.scrape_details(movie)
     doc = Nokogiri::HTML(open("#{movie.url}"))
+# binding.pry
     movie.synopsis = doc.search("div#movieSynopsis").first.text.strip
-    arr = doc.search(".meta-value").map{|i| i.text.strip}
-    arr.delete(arr[1]) # delete genres
-    movie.rating = arr[0]
-    movie.directors = arr[1]
-    movie.writers = arr[2]
-    movie.release_date = arr[3]
-    movie.box_office = arr[5]
-    movie.runtime = arr[6]
-  end
+    details = doc.search(".meta-value").map{|i| i.text.strip}
 
+    genres = details[1].split(", \n")
+    genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
+    movie.genres = genres
+    # binding.pry
+    details.delete(details[1]) # delete genres
+# binding.pry
+    movie.rating = details[0]
+    movie.directors = details[1]
+    movie.writers = details[2]
+    movie.release_date = details[3]
+    movie.box_office = details[5]
+    movie.runtime = details[6]
+
+  end
 
 end
