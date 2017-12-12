@@ -7,8 +7,15 @@ class Top100Movies::CLI
     puts ""
     # start
     doc = Nokogiri::HTML(open("https://www.rottentomatoes.com/m/the_wizard_of_oz_1939"))
-    binding.pry
+    # binding.pry
+
     # doc.search("div#movieSynopsis").first.text.strip -> Synopsis
+    # doc.search(".meta-value a[href]").first.text.strip -> Genres
+    # arr = doc.search(".meta-value").map{|i| i.text.strip} -> list of all
+
+    arr = doc.search(".meta-value").map{|i| i.text.strip}
+    arr.delete(arr[1]) # delete genres
+    binding.pry
     #
   end
 

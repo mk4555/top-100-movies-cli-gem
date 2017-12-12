@@ -14,3 +14,8 @@
 #   puts "#{cell.search(".unstyled").text.strip}" # Extracts Movie Name
 #   cell.search("a").each {|link| puts "#{link['href']}"} # Extracts URL
 # end
+
+
+# doc.search("div#movieSynopsis").first.text.strip -> Synopsis
+# doc.search(".meta-value a[href]").first.text.strip -> Genres
+# arr = doc.search(".meta-value").map{|i| i.text.strip}

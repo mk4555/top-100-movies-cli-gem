@@ -1,6 +1,6 @@
 class Top100Movies::Movie
   attr_accessor :rank, :name, :score, :url, :synopsis, :rating, :genre, :directors,
-  :writers, :debut, :box_office, :length, :studio
+  :writers, :release_date, :box_office, :runtime, :studio
 
   @@all = []
 
