@@ -31,7 +31,7 @@ class Top100Movies::Scraper
     doc = Nokogiri::HTML(open("#{movie.url}"))
 
     movie.synopsis = doc.search("div#movieSynopsis").first.text.strip
-    
+
     labels = doc.search(".meta-label").map{|i| i.text.strip}
     values = doc.search(".meta-value").map{|i| i.text.strip}
 
@@ -41,7 +41,6 @@ class Top100Movies::Scraper
         movie.rating = values[i]
       when "Genre:"
         genres = values[i].split(", \n")
-        # binding.pry
         genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
         movie.genres = genres
       when "Directed By:"

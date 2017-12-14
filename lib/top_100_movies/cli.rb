@@ -38,9 +38,9 @@ class Top100Movies::CLI
   end
 
   def list_movies
-    puts " Rank |      Name      | Score "
     Top100Movies::Movie.all.each do |movie|
-      puts " #{movie.rank}. #{movie.name} "
+      printf "%4s %-2s \n", "#{movie.rank}.", movie.name
+      # puts " #{movie.rank}. #{movie.name} "
     end
   end
 end

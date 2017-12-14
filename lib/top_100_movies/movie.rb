@@ -41,19 +41,21 @@ class Top100Movies::Movie
     puts ""
     puts "#{movie.rank}. #{movie.name}"
     puts ""
-    puts "SYNOPSIS"
+    puts "Rotten Tomatoes Score: #{movie.score}"
+    puts ""
+    puts "Synopsis"
     puts "#{movie.synopsis}"
     puts ""
-    puts "Rating: \t#{movie.rating}"
-    puts "Genre: \t\t#{movie.genres.join(", ")}"
-    puts "Directors:\t#{movie.directors}"
-    puts "Writers:\t#{movie.writers}"
-    puts "In Theaters:\t#{movie.release_date[0..11]}"
-    puts "On Disc/Streaming: \t#{movie.disc_release_date}"
-    puts "Box Office:\t#{movie.box_office}"
-    puts "Runtime: \t#{movie.runtime}"
-    puts "Studio: \t#{movie.studio}"
-    puts "RT Score: \t#{movie.score}"
+
+    printf "%18s %-2s \n", "Rating:", movie.rating
+    printf "%18s %-2s \n", "Genre:", movie.genres.join(", ")
+    printf "%18s %-2s \n", "Directors:", movie.directors
+    printf "%18s %-2s \n", "Writers:", movie.writers
+    printf "%18s %-2s \n", "In Theaters:", movie.release_date
+    printf "%18s %-2s \n", "On Disc/Streaming:", movie.disc_release_date
+    printf "%18s %-2s \n", "Box Office:", movie.box_office
+    printf "%18s %-2s \n", "Runtime:", movie.runtime
+    printf "%18s %-2s \n", "Studio:", movie.studio
   end
 
 
