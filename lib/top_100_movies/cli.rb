@@ -15,7 +15,7 @@ class Top100Movies::CLI
     puts "Please enter the number of the movie you'd like to know more about"
     puts ""
     input = gets.chomp
-    if input.to_i > 0 && input.to_i <= 100
+    if input.to_i > 0 && input.to_i <= 100 #between
       movie = Top100Movies::Movie.find(input.to_i)
       Top100Movies::Movie.print_movie(movie)
       puts ""

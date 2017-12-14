@@ -25,7 +25,7 @@ class Top100Movies::Movie
   end
 
   def self.all
-    @@all.reject! { |c| c.name.empty? }
+    @@all.reject { |c| c.name.empty? }
   end
 
   def self.find(rank)
