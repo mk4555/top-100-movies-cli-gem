@@ -1,16 +1,15 @@
 class Top100Movies::CLI
   def call
     Top100Movies::Scraper.new.generate_movies
-    puts "******************************************************"
-    puts "******        WELCOME TO TOP 100 MOVIES!        ******"
-    puts "******************************************************"
-    puts ""
-    list_movies
     start
   end
 
   def start
-
+    puts "******************************************************"
+    puts "******        WELCOME TO TOP 100 MOVIES!        ******"
+    puts "******************************************************"
+    list_movies
+    puts ""
     puts ""
     puts "Type 'exit' to exit the program"
     puts "Please enter the number of the movie you'd like to know more about"
@@ -23,7 +22,7 @@ class Top100Movies::CLI
       print "Would you like to checkout another movie? (y/n): "
       repeat = gets.chomp
       if repeat.downcase == 'y'
-        call
+        start
       else
         puts "Goodbye!"
         exit

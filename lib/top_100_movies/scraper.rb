@@ -48,7 +48,7 @@ class Top100Movies::Scraper
       when "Written By:"
         movie.writers = values[i]
       when "In Theaters:"
-        movie.release_date = values[i][0..11]
+        movie.release_date = values[i].gsub("\n","")[0..11]
       when "On Disc/Streaming"
         movie.disc_release_date = values[i]
       when "Box Office:"

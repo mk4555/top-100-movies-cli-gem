@@ -51,7 +51,7 @@ class Top100Movies::Movie
     printf "%18s %-2s \n", "Genre:", movie.genres.join(", ")
     printf "%18s %-2s \n", "Directors:", movie.directors
     printf "%18s %-2s \n", "Writers:", movie.writers
-    printf "%18s %-2s \n", "In Theaters:", movie.release_date
+    printf "%18s %-2s \n", "In Theaters:", movie.release_date[0..11]
     printf "%18s %-2s \n", "On Disc/Streaming:", movie.disc_release_date
     printf "%18s %-2s \n", "Box Office:", movie.box_office
     printf "%18s %-2s \n", "Runtime:", movie.runtime
