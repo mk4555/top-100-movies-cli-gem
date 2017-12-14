@@ -40,7 +40,6 @@ class Top100Movies::CLI
   def list_movies
     Top100Movies::Movie.all.each do |movie|
       printf "%4s %-2s \n", "#{movie.rank}.", movie.name
-      # puts " #{movie.rank}. #{movie.name} "
     end
   end
 end

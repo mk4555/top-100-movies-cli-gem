@@ -59,33 +59,6 @@ class Top100Movies::Scraper
         movie.studio = values[i]
       end
     end
-
-    # if details.size == 8
-    #   genres = details[1].split(", \n")
-    #   genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
-    #   movie.genres = genres
-    #   details.delete(details[1])
-    #
-    #   movie.rating = details[0]
-    #   movie.directors = details[1]
-    #   movie.writers = details[2]
-    #   movie.release_date = details[3]
-    #   movie.runtime = details[5]
-    #   movie.studio = details[6]
-    # else
-    #   genres = details[1].split(", \n")
-    #   genres.map!{|genre| genre.gsub(/\s{2,}/,'')}
-    #   movie.genres = genres
-    #   details.delete(details[1]) # delete genres
-    #
-    #   movie.rating = details[0]
-    #   movie.directors = details[1]
-    #   movie.writers = details[2]
-    #   movie.release_date = details[3]
-    #   movie.box_office = details[5]
-    #   movie.runtime = details[6]
-    #   movie.studio = details[7]
-    # end
   end
 
 end
