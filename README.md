@@ -20,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Follow the on screen prompts from
+`bin/top_100_movies`
 
 ## Development
 
