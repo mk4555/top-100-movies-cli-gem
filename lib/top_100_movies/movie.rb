@@ -16,12 +16,14 @@ class Top100Movies::Movie
   end
 
   def self.new_from_index(index)
-    self.new(
-      index.search(".bold").text.tr('\.',''),
-      index.search(".unstyled").text.strip,
-      index.search(".tMeterScore").text.strip,
-      Top100Movies::Scraper.scrape_url(index)
-    )
+    if index.search(".bold").text != ""
+      self.new(
+        index.search(".bold").text.tr('\.',''),
+        index.search(".unstyled").text.strip,
+        index.search(".tMeterScore").text.strip,
+        Top100Movies::Scraper.scrape_url(index)
+      )
+    end
   end
 
   def self.all
