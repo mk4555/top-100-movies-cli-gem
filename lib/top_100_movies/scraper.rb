@@ -6,16 +6,25 @@ class Top100Movies::Scraper
 
   def scrape_movies
     table = self.get_page.at('.table')
-    cells = []
-    table.search('tr').each do |tr|
-      cells << tr.search('th, td')
+    table.search('tr').collect do |tr|
+      tr.search('th, td')
     end
-    cells
   end
 
   def generate_movies
     scrape_movies.each do |cell|
-      Top100Movies::Movie.new_from_index(cell)
+      Top100Movies::Scraper.new_from_index(cell)
+    end
+  end
+
+  def self.new_from_index(index)
+    if index.search(".bold").text != ""
+      Top100Movies::Movie.new(
+        index.search(".bold").text.tr('\.',''),
+        index.search(".unstyled").text.strip,
+        index.search(".tMeterScore").text.strip,
+        self.scrape_url(index)
+      )
     end
   end
 
